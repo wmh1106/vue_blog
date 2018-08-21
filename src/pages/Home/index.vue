@@ -11,3 +11,9 @@
 
   </div>
 </template>
+
+<style lang="scss" scoped>
+div{
+  width: 100px;
+}
+</style>
