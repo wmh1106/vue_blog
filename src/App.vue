@@ -6,8 +6,14 @@
 </template>
 
 <script>
+
+import request from './utils/request.js'
+
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    request('/auth', 'GET')
+  }
 }
 </script>
 
