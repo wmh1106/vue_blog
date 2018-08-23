@@ -12,7 +12,7 @@
 
 <style lang="scss" scoped>
   .myFooter{
-    background: #f8f8f8;
+    background: #d9d9d9;
     > div{
       width: 1000px;
       height: 200px;

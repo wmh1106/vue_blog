@@ -23,8 +23,5 @@ export default {
 }
 </script>
 <style lang="scss">
-#app{
-  height: 100%;
-  background: #000;
-}
+
 </style>

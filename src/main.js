@@ -2,13 +2,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import { Button, Select } from 'element-ui'
+import {Button, Form, FormItem, Input, Switch, Pagination} from 'element-ui'
 
 import './assets/style/reset.css'
 import './assets/style/border.css'
 
 Vue.use(Button)
-Vue.use(Select)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Switch)
+Vue.use(Input)
+Vue.use(Pagination)
 
 Vue.config.productionTip = false
 

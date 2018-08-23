@@ -1,6 +1,6 @@
 <template>
-  <header class="myHeader login">
-    <template>
+  <header class="myHeader ">
+    <!-- <template>
         <h2>LET'S SHARE</h2>
         <div>
           <el-button>创建博客</el-button>
@@ -10,15 +10,15 @@
             <li>退出登录</li>
           </ul>
         </div>
-    </template>
+    </template> -->
 
     <template>
-      <!-- <h2>LET'S SHARE</h2>
+      <h2>LET'S SHARE</h2>
       <span class="introduction">精品博客汇聚</span>
       <div class="buttonWrap">
         <el-button>登录</el-button>
         <el-button>注册</el-button>
-      </div> -->
+      </div>
     </template>
   </header>
 </template>
@@ -41,7 +41,9 @@ export default {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 290px;
+  padding-top:80px;
+  padding-bottom:30px;
+  // height: 290px;
   background: url('../assets/img/cover.jpg') no-repeat center bottom;
   background-size: cover;
   color: #fff;
@@ -49,7 +51,10 @@ export default {
     font-size: 50px;
   }
   .introduction{
-    padding:20px 0 40px;
+    padding:20px 0 0;
+  }
+  .buttonWrap{
+    padding-top:60px;
   }
 }
 
