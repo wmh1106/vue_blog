@@ -29,7 +29,7 @@ export default new Router({
       component: Edit
     },
     {
-      path: '/home',
+      path: '/',
       name: 'Home',
       component: Home
     },

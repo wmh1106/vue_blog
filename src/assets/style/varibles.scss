@@ -1,0 +1,11 @@
+$bgColor: #00afc7;
+
+@function px( $px) {
+    @return $px*2/100+rem;
+}
+
+@mixin ellipsis {
+  overflow : hidden;
+  white-space : nowrap;
+  text-overflow : ellipsis;
+}

@@ -1,4 +1,4 @@
-import request from '@/helpers/request'
+import request from '@/utils/request'
 
 const URL = {
   REGISTER: '/auth/register',

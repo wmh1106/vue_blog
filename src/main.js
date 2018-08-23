@@ -4,6 +4,9 @@ import router from './router'
 
 import { Button, Select } from 'element-ui'
 
+import './assets/style/reset.css'
+import './assets/style/border.css'
+
 Vue.use(Button)
 Vue.use(Select)
 
