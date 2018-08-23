@@ -1,3 +1,46 @@
 <template>
-  <div>博客详情</div>
+  <div class="ditails">
+    <div class="userBox">
+      <img class="headImg" src="" alt="">
+      <div class="userInfo">
+        <p> 用户名 </p>
+        <p> 简介 </p>
+        <p class="time">创建于<span>x9</span>天前</p>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.ditails{
+  width: 1000px;
+  margin: 0 auto;
+}
+.userBox {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  border-bottom: 1px solid #f2f2f2;
+  .headImg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .userInfo {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: #666;
+    p:nth-of-type(2){
+      font-size: 13px;
+    }
+    .time{
+      font-size: 12px;
+      color: #999;
+      span{color:#409EFF}
+    }
+  }
+}
+</style>

@@ -64,71 +64,83 @@
 </template>
 
 <style lang="scss" scoped>
-  .articleBox {
-    width: 1000px;
-    margin-left:auto;
-    margin-right:auto;
-    .userBox{
-      display: flex;
-      align-items: center;
-      height: 100px;
-      border-bottom: 1px solid #f2f2f2;
-      .headImg{
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        overflow: hidden;
-      }
-      .userInfo{
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-      }
+.articleBox {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  .userBox {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    border-bottom: 1px solid #f2f2f2;
+    .headImg {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
     }
-    .warpList{
-      li{
-        display: flex;
-        padding:30px 0;
-        .time{
-          background: #409EFF;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 10px;
-          margin-right: 20px;
-          span{
-            padding-bottom:3px;
-            color: #fff;
-            text-align: center;
-          }
-          .day{
-            font-size: 22px;
-          }
-          .year,.mouth{
-            font-size: 13px;
-          }
-        }
-        .artic{
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          h3{
-            font-size: 16px;
-            color: #666;
-          }
-          p{
-            font-size: 13px;
-            color: #999;
-            line-height: 1.4;
-          }
-          .settingWrap{
-            font-size: 12px;
-            color: #409EFF;
-          }
+    .userInfo {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      color: #666;
+      p:nth-of-type(2) {
+        font-size: 13px;
+      }
+      .time {
+        font-size: 12px;
+        color: #999;
+        span {
+          color: #409eff;
         }
       }
     }
   }
+  .warpList {
+    li {
+      display: flex;
+      padding: 30px 0;
+      .time {
+        background: #409eff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        margin-right: 20px;
+        span {
+          padding-bottom: 3px;
+          color: #fff;
+          text-align: center;
+        }
+        .day {
+          font-size: 22px;
+        }
+        .year,
+        .mouth {
+          font-size: 13px;
+        }
+      }
+      .artic {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h3 {
+          font-size: 16px;
+          color: #666;
+        }
+        p {
+          font-size: 13px;
+          color: #999;
+          line-height: 1.4;
+        }
+        .settingWrap {
+          font-size: 12px;
+          color: #409eff;
+        }
+      }
+    }
+  }
+}
 </style>
