@@ -11,17 +11,13 @@
 import MyHeader from '@/components/MyHeader'
 import MyFooter from '@/components/MyFooter'
 
-// import request from './utils/request.js'
-
 export default {
   name: 'App',
   components: {
     MyHeader, MyFooter
   },
-  created () {
+  mounted () {
+
   }
 }
 </script>
-<style lang="scss">
-
-</style>

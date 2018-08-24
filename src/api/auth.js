@@ -7,20 +7,22 @@ const URL = {
   GET_INFO: '/auth'
 }
 
-export default {
-  register ({username, password}) {
-    return request(URL.REGISTER, 'POST', { username, password })
-  },
+const register = ({username, password}) => {
+  return request(URL.REGISTER, 'POST', { username, password })
+}
 
-  login ({username, password}) {
-    return request(URL.LOGIN, 'POST', { username, password })
-  },
+const login = ({username, password}) => {
+  return request(URL.LOGIN, 'POST', { username, password })
+}
 
-  logout () {
-    return request(URL.LOGOUT)
-  },
+const logout = () => {
+  return request(URL.LOGOUT)
+}
 
-  getInfo () {
-    return request(URL.GET_INFO)
-  }
+const getInfo = () => {
+  return request(URL.GET_INFO)
+}
+
+export {
+  register, login, logout, getInfo
 }

@@ -1,23 +1,23 @@
 <template>
-  <header class="myHeader ">
-    <!-- <template>
+  <header class="myHeader" :class="{'login': login}">
+    <template v-if="login">
         <h2>LET'S SHARE</h2>
         <div>
           <el-button>创建博客</el-button>
           <div class="avatar"><img src="" alt=""></div>
           <ul class="seting">
             <li>我的博客</li>
-            <li>退出登录</li>
+            <li @click="onLogout">退出登录</li>
           </ul>
         </div>
-    </template> -->
+    </template>
 
-    <template>
+    <template v-if="!login">
       <h2>LET'S SHARE</h2>
       <span class="introduction">精品博客汇聚</span>
       <div class="buttonWrap">
-        <el-button>登录</el-button>
-        <el-button>注册</el-button>
+        <router-link to="/login"><el-button>登录</el-button></router-link>
+        <router-link to="/register"><el-button>注册</el-button></router-link>
       </div>
     </template>
   </header>
@@ -25,11 +25,32 @@
 
 <script>
 
+import {getInfo, logout} from '@/api/auth'
+
 export default {
   data () {
     return {
-      a: 1
+      login: false
     }
+  },
+  methods: {
+    onLogout () {
+      logout().then(res => {
+        console.log(res)
+        if (res.status === 'ok') {
+          this.$message({
+            message: res.msg,
+            type: 'success'
+          })
+          this.$router.push('/login')
+        }
+      })
+    }
+  },
+  mounted () {
+    getInfo().then(res => {
+      this.login = res.isLogin
+    })
   }
 }
 </script>
