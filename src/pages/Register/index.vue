@@ -22,31 +22,11 @@
 <script>
 
 import {register} from '@/api/auth.js'
+import {validateName, validatePass} from './rule.js'
+import {mapActions} from 'vuex'
 
 export default {
   data () {
-    var validateName = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入账号'))
-      } else if (value.length > 15 || value.length <= 0) {
-        callback(new Error('用户名长度1到15个字符'))
-      } else if (!/\w/.test(value)) {
-        callback(new Error('只能是字母数字下划线中文'))
-      } else {
-        callback()
-      }
-    }
-
-    var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'))
-      } else if (value.length < 6 || value.length > 16) {
-        callback(new Error('密码长度6到16个字符'))
-      } else {
-        callback()
-      }
-    }
-
     return {
       userInfo: {
         password: '',
@@ -64,26 +44,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions('auth', ['actionGetInfo']),
+
     onRegister (formName) {
       const option = {username: this.userInfo.name, password: this.userInfo.password}
       this.$refs[formName].validate((valid) => {
         if (valid) {
           register(option).then(res => {
-            if (res.status === 'ok') {
-              this.$message({
-                message: res.msg,
-                type: 'success'
-              })
-              return res.data
-            } else {
-              this.$message({
-                message: res.msg,
-                type: 'fail'
-              })
-              return new Error(res.msg)
-            }
+            return res.status === 'ok' ? res.data : new Error(res.msg)
           }).then(res => {
             this.$router.push('/')
+            this.actionGetInfo()
           }).catch(error => {
             console.log(error)
           })

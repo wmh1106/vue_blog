@@ -21,32 +21,14 @@
 
 <script>
 
+import {validateName, validatePass} from './rule'
+
 import {login} from '@/api/auth.js'
+
+import {mapActions} from 'vuex'
 
 export default {
   data () {
-    var validateName = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入账号'))
-      } else if (value.length > 15 || value.length <= 0) {
-        callback(new Error('用户名长度1到15个字符'))
-      } else if (!/\w/.test(value)) {
-        callback(new Error('只能是字母数字下划线中文'))
-      } else {
-        callback()
-      }
-    }
-
-    var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'))
-      } else if (value.length < 6 || value.length > 16) {
-        callback(new Error('密码长度6到16个字符'))
-      } else {
-        callback()
-      }
-    }
-
     return {
       userInfo: {
         password: '',
@@ -64,6 +46,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('auth', ['actionGetInfo']),
     onLogin (formName) {
       const option = {username: this.userInfo.name, password: this.userInfo.password}
       this.$refs[formName].validate((valid) => {
@@ -75,16 +58,10 @@ export default {
                 type: 'success'
               })
               return res.data
-            } else {
-              this.$message({
-                message: res.msg,
-                type: 'fail'
-              })
-              return new Error(res.msg)
             }
           }).then(res => {
             // 存状态、用户数据
-
+            this.actionGetInfo()
             this.$router.push('/')
           }).catch(error => {
             console.log(error)
@@ -95,12 +72,6 @@ export default {
         }
       })
     }
-  },
-  mounted () {
-    // console.log(this.userInfo)
-    // login({username: this.name, password: this.password}).then(res => {
-    //   console.log(res)
-    // })
   }
 }
 </script>

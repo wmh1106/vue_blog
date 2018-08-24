@@ -1,10 +1,12 @@
 <template>
   <header class="myHeader" :class="{'login': login}">
+
+    <!-- <div>{{ userInfo }}isLogin: {{isLogin}}</div> -->
     <template v-if="login">
-        <h2>LET'S SHARE</h2>
+        <h2><router-link to="/">LET'S SHARE</router-link></h2>
         <div>
           <el-button>创建博客</el-button>
-          <div class="avatar"><img src="" alt=""></div>
+          <div class="avatar"><img :src="userInfo ? userInfo.avatar : ''" alt=""></div>
           <ul class="seting">
             <li>我的博客</li>
             <li @click="onLogout">退出登录</li>
@@ -13,7 +15,7 @@
     </template>
 
     <template v-if="!login">
-      <h2>LET'S SHARE</h2>
+      <h2><router-link to="/">LET'S SHARE</router-link></h2>
       <span class="introduction">精品博客汇聚</span>
       <div class="buttonWrap">
         <router-link to="/login"><el-button>登录</el-button></router-link>
@@ -25,32 +27,34 @@
 
 <script>
 
-import {getInfo, logout} from '@/api/auth'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   data () {
     return {
-      login: false
     }
   },
+
+  computed: {
+    ...mapGetters('auth', ['userInfo', 'isLogin']),
+
+    login () {
+      console.log('++++++++++++++', this.isLogin)
+      return this.isLogin
+    }
+  },
+
   methods: {
+    ...mapActions('auth', ['actionLogout', 'actionGetInfo']),
+
     onLogout () {
-      logout().then(res => {
-        console.log(res)
-        if (res.status === 'ok') {
-          this.$message({
-            message: res.msg,
-            type: 'success'
-          })
-          this.$router.push('/login')
-        }
+      this.actionLogout().then(res => {
+        this.$router.push('/login')
       })
     }
   },
-  mounted () {
-    getInfo().then(res => {
-      this.login = res.isLogin
-    })
+  created () {
+    this.actionGetInfo()
   }
 }
 </script>
