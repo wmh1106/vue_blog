@@ -1,13 +1,12 @@
 <template>
   <header class="myHeader" :class="{'login': login}">
 
-    <!-- <div>{{ userInfo }}isLogin: {{isLogin}}</div> -->
     <template v-if="login">
         <h2><router-link to="/">LET'S SHARE</router-link></h2>
-        <div>
-          <el-button>创建博客</el-button>
+        <div class="">
+          <el-button><router-link to="/create">创建博客</router-link></el-button>
           <div class="avatar"><img :src="userInfo ? userInfo.avatar : ''" alt=""></div>
-          <ul class="seting">
+          <ul class="setting">
             <li>我的博客</li>
             <li @click="onLogout">退出登录</li>
           </ul>
@@ -67,7 +66,6 @@ export default {
   width: 100%;
   padding-top:80px;
   padding-bottom:30px;
-  // height: 290px;
   background: url('../assets/img/cover.jpg') no-repeat center bottom;
   background-size: cover;
   color: #fff;
@@ -94,6 +92,7 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
+    padding-right: 30px;
   }
   .avatar{
     width: 40px;
@@ -103,16 +102,17 @@ export default {
     background: #fff;
     margin-left: 20px;
   }
-  .seting{
+  .setting{
     position: absolute;
     right: 0;
-    top:100%;
+    top:47px;
     background: #f8f8f8;
     color: #666;
     border-radius: 5px;
     line-height: 30px;
     li{
-      padding:5px 15px;border-bottom: 1px solid #ddd;
+      padding:5px 15px;
+      border-bottom: 1px solid #ddd;
       :nth-last-child(1){
         border:none;
       }
