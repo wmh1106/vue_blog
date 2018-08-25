@@ -5,9 +5,9 @@
         <h2><router-link to="/">LET'S SHARE</router-link></h2>
         <div class="">
           <el-button><router-link to="/create">创建博客</router-link></el-button>
-          <div class="avatar"><img :src="userInfo ? userInfo.avatar : ''" alt=""></div>
-          <ul class="setting">
-            <li>我的博客</li>
+          <div class="avatar" @click="isSetting"><img :src="userInfo ? userInfo.avatar : ''" alt=""></div>
+          <ul class="setting" v-show="isAttrSetting">
+            <router-link tag="li" to="/my">我的博客</router-link>
             <li @click="onLogout">退出登录</li>
           </ul>
         </div>
@@ -31,6 +31,7 @@ import {mapGetters, mapActions} from 'vuex'
 export default {
   data () {
     return {
+      isAttrSetting: false
     }
   },
 
@@ -49,6 +50,9 @@ export default {
       this.actionLogout().then(res => {
         this.$router.push('/login')
       })
+    },
+    isSetting () {
+      this.isAttrSetting = !this.isAttrSetting
     }
   },
   created () {

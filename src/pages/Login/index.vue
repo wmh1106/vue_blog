@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <h2 class="pageTitle">登录账号</h2>
     <el-form ref="userInfo" label-width="80px" status-icon :model="userInfo" :rules="rulesLogin">
       <el-form-item label="账号" prop="name">
         <el-input v-model="userInfo.name" ></el-input>
@@ -80,6 +81,14 @@ export default {
 .login{
   width: 500px;
   margin: 100px auto 50px;
+  .pageTitle{
+    position: relative;
+    top: -30px;
+    padding: 10px 0;
+    font-size: 30px;
+    font-weight: blod;
+    border-bottom:1px solid #f1f1f1;
+  }
   .info{
     text-align: center;
   }

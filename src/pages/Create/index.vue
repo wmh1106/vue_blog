@@ -12,7 +12,7 @@
       </el-form-item>
 
       <el-form-item label="显示在首页">
-        <el-switch></el-switch>
+        <el-switch v-model="atIndex"></el-switch>
       </el-form-item>
 
       <el-form-item>
@@ -32,7 +32,7 @@ export default {
       title: '',
       content: '',
       description: '',
-      atIndex: false
+      atIndex: true
     }
   },
   methods: {
@@ -42,10 +42,17 @@ export default {
         title: this.title,
         content: this.content,
         description: this.description,
-        atIndex: true
+        atIndex: this.atIndex
       }
       createBlog(option).then(res => {
-        console.log(res.content)
+        console.log(res)
+        if (res.status === 'ok') {
+          this.$message({
+            message: '恭喜你，创建成功',
+            type: 'success'
+          })
+          this.$router.push('/details/' + res.data.id)
+        }
       })
     }
   }
