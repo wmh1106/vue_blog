@@ -12,6 +12,7 @@ import User from '@/pages/User'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/create',
@@ -19,7 +20,7 @@ export default new Router({
       component: Create
     },
     {
-      path: '/details',
+      path: '/details/:id',
       name: 'Details',
       component: Details
     },
@@ -28,20 +29,11 @@ export default new Router({
       name: 'Edit',
       component: Edit
     },
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
+
     {
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/my',
-      name: 'My',
-      component: My
     },
     {
       path: '/register',
@@ -49,9 +41,18 @@ export default new Router({
       component: Register
     },
     {
+      path: '/my',
+      name: 'My',
+      component: My
+    },
+    {
       path: '/user',
       name: 'User',
       component: User
+    }, {
+      path: '/',
+      name: 'Home',
+      component: Home
     }
   ]
 })

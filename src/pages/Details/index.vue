@@ -1,9 +1,9 @@
 <template>
   <div class="ditails">
     <div class="userBox">
-      <img class="headImg" src="" alt="">
+      <img class="headImg" :src="detail.user.avatar" alt="">
       <div class="userInfo">
-        <p> 用户名 </p>
+        <p> {{detail.user.username}} </p>
         <p> 简介 </p>
         <p class="time">创建于<span>x9</span>天前</p>
       </div>
@@ -11,36 +11,23 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.ditails{
-  width: 1000px;
-  margin: 0 auto;
-}
-.userBox {
-  display: flex;
-  align-items: center;
-  height: 100px;
-  border-bottom: 1px solid #f2f2f2;
-  .headImg {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  .userInfo {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    color: #666;
-    p:nth-of-type(2){
-      font-size: 13px;
+<script>
+
+import {getDetail} from '@/api/blog.js'
+
+export default {
+  data () {
+    return {
+      detail: {}
     }
-    .time{
-      font-size: 12px;
-      color: #999;
-      span{color:#409EFF}
-    }
+  },
+  created () {
+    const blogId = this.$router.currentRoute.params.id
+    getDetail({blogId: blogId}).then(res => {
+      this.detail = res.data
+    })
   }
 }
-</style>
+</script>
+
+<style lang="scss" scoped src="./details.scss"></style>

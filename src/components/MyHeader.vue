@@ -39,7 +39,6 @@ export default {
     ...mapGetters('auth', ['userInfo', 'isLogin']),
 
     login () {
-      console.log('++++++++++++++', this.isLogin)
       return this.isLogin
     }
   },
