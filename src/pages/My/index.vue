@@ -1,146 +1,94 @@
 <template>
   <div class="articleBox">
     <div class="userBox">
-      <img class="headImg" src="" alt="">
+      <img class="headImg" :src="userInfo.avatar" alt="">
       <div class="userInfo">
-        <p> 用户名 </p>
+        <p> {{userInfo.username}} </p>
         <p> 简介 </p>
       </div>
     </div>
     <ul class="warpList">
-      <li>
-        <div class="time">
+      <li v-for="item of listData" :key="item.id">
+        <div class="time" time="item.createdAt">
           <span class="day">20</span>
           <span class="mouth">5月</span>
           <span class="year">2018</span>
         </div>
         <div class="artic">
-          <h3>前端异步大揭秘</h3>
-          <p>本文以一个简单的文件读写为例，讲解了异步的不同写法，包括 普通的 callback、ES2016中的Promise和Generator、 Node 用于解决回调的co 模块、ES2017中的async/await。适合初步接触 Node.js以及少量 ES6语法的同学阅读...</p>
+          <h3>{{item.title}}</h3>
+          <p>{{item.description}}</p>
           <div class="settingWrap">
-            <span>编辑</span>
-            <span>删除</span>
-          </div>
-        </div>
-      </li>
-
-      <li>
-        <div class="time">
-          <span class="day">20</span>
-          <span class="mouth">5月</span>
-          <span class="year">2018</span>
-        </div>
-        <div class="artic">
-          <h3>前端异步大揭秘</h3>
-          <p>本文以一个简单的文件读写为例，讲解了异步的不同写法，包括 普通的 callback、ES2016中的Promise和Generator、 Node 用于解决回调的co 模块、ES2017中的async/await。适合初步接触 Node.js以及少量 ES6语法的同学阅读...</p>
-          <div class="settingWrap">
-            <span>编辑</span>
-            <span>删除</span>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="time">
-          <span class="day">20</span>
-          <span class="mouth">5月</span>
-          <span class="year">2018</span>
-        </div>
-        <div class="artic">
-          <h3>前端异步大揭秘</h3>
-          <p>本文以一个简单的文件读写为例，讲解了异步的不同写法，包括 普通的 callback、ES2016中的Promise和Generator、 Node 用于解决回调的co 模块、ES2017中的async/await。适合初步接触 Node.js以及少量 ES6语法的同学阅读...</p>
-          <div class="settingWrap">
-            <span>编辑</span>
-            <span>删除</span>
+            <router-link :to="`/edit/${item.id}`">编辑</router-link>
+            <span @click="onDelete(item.id)">删除</span>
           </div>
         </div>
       </li>
     </ul>
     <el-pagination
+      @current-change="onChangePage"
       background
       layout="prev, pager, next"
-      :total="100">
+      :total="total">
     </el-pagination>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.articleBox {
-  width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  .userBox {
-    display: flex;
-    align-items: center;
-    height: 100px;
-    border-bottom: 1px solid #f2f2f2;
-    .headImg {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      overflow: hidden;
+<script>
+import { mapState } from 'vuex'
+import { getBlogsByUserId, deleteBlog } from '@/api/blog.js'
+
+export default {
+  data () {
+    return {
+      listData: [],
+      page: 1,
+      total: 0,
+      totalPage: 1
     }
-    .userInfo {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      color: #666;
-      p:nth-of-type(2) {
-        font-size: 13px;
-      }
-      .time {
-        font-size: 12px;
-        color: #999;
-        span {
-          color: #409eff;
+  },
+  computed: {
+    ...mapState('auth', ['userInfo'])
+  },
+
+  methods: {
+    onDelete (blogId) {
+      deleteBlog({ blogId }).then(res => {
+        if (res.status === 'ok') {
+          this.$message({
+            message: res.msg,
+            type: 'success'
+          })
+          this.listData = this.listData.filter(item => {
+            return item.id !== blogId
+          })
         }
-      }
+      })
+    },
+    onChangePage (currentPage) {
+      getBlogsByUserId(this.userInfo.id, {
+        page: currentPage,
+        atIndex: true
+      }).then(res => {
+        console.log(res)
+        this.listData = {
+          data: res.data,
+          page: res.page,
+          total: res.total,
+          totalPage: res.totalPage
+        }
+        document.documentElement.scrollTop = 0
+      })
     }
-  }
-  .warpList {
-    li {
-      display: flex;
-      padding: 30px 0;
-      .time {
-        background: #409eff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-        margin-right: 20px;
-        span {
-          padding-bottom: 3px;
-          color: #fff;
-          text-align: center;
-        }
-        .day {
-          font-size: 22px;
-        }
-        .year,
-        .mouth {
-          font-size: 13px;
-        }
-      }
-      .artic {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        h3 {
-          font-size: 16px;
-          color: #666;
-        }
-        p {
-          font-size: 13px;
-          color: #999;
-          line-height: 1.4;
-        }
-        .settingWrap {
-          font-size: 12px;
-          color: #409eff;
-        }
-      }
-    }
+  },
+  mounted () {
+    getBlogsByUserId(this.userInfo.id, { page: 1, atIndex: true }).then(res => {
+      this.listData = res.data
+      this.page = res.page
+      this.total = res.total
+      this.totalPage = res.totalPage
+    })
   }
 }
-</style>
+</script>
+
+<style lang="scss" scoped src="./my.scss"></style>

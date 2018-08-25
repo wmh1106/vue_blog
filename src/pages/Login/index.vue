@@ -26,7 +26,7 @@ import {validateName, validatePass} from './rule'
 
 import {login} from '@/api/auth.js'
 
-import {mapActions} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 
 export default {
   data () {
@@ -48,11 +48,13 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['actionGetInfo']),
+    ...mapMutations('auth', ['mutationGetInfo']),
     onLogin (formName) {
       const option = {username: this.userInfo.name, password: this.userInfo.password}
       this.$refs[formName].validate((valid) => {
         if (valid) {
           login(option).then(res => {
+            console.log(res)
             if (res.status === 'ok') {
               this.$message({
                 message: res.msg,
@@ -62,7 +64,8 @@ export default {
             }
           }).then(res => {
             // 存状态、用户数据
-            this.actionGetInfo()
+            this.actionGetInfo(res)
+            // this.mutationGetInfo(res)
             this.$router.push('/')
           }).catch(error => {
             console.log(error)

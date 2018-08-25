@@ -49,7 +49,6 @@ export default {
     }
   },
   created () {
-    console.log()
     getIndexBlogs({page: 1}).then(res => {
       this.listData = {
         data: res.data,
